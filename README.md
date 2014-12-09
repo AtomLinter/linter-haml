@@ -9,6 +9,7 @@ Linter package must be installed in order to use this plugin. If Linter is not i
 ### Plugin installation
 ```
 $ apm install linter-haml
+```
 
 ## Contributing
 If you would like to contribute enhancements or fixes, please do the following:
