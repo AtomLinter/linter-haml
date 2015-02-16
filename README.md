@@ -11,6 +11,13 @@ Linter package must be installed in order to use this plugin. If Linter is not i
 $ apm install linter-haml
 ```
 
+## Settings
+You can configure linter-haml by editing ~/.atom/config.cson (choose Open Your Config in Atom menu):
+```
+'linter-haml-lint':
+  'hamlLintExecutablePath': null #haml-lint path. run 'which haml-lint' to find the path
+```
+
 ## Contributing
 If you would like to contribute enhancements or fixes, please do the following:
 
