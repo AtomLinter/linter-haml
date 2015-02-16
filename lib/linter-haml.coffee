@@ -17,4 +17,13 @@ class LinterHaml extends Linter
     '\\[((?<warning>W)|(?<error>E))\\] ' +
     '(?<message>.+)'
 
+  constructor: (editor) ->
+    super(editor)
+
+    atom.config.observe 'linter-haml-lint.hamlLintExecutablePath', =>
+      @executablePath = atom.config.get 'linter-haml-lint.hamlLintExecutablePath'
+
+  destroy: ->
+    atom.config.unobserve 'linter-haml-lint.hamlLintExecutablePath'
+
 module.exports = LinterHaml
