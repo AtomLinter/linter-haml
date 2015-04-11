@@ -1,3 +1,9 @@
+# Unreleased
+
+### Clarify dependencies
+
+* See README for details.
+
 # 0.1.1
 
 ### Support setting executable path

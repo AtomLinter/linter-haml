@@ -4,7 +4,14 @@ linter-haml
 This linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides an interface to [haml-lint](https://github.com/causes/haml-lint). It will be used with files that have the "HAML" syntax.
 
 ## Installation
-Linter package must be installed in order to use this plugin. If Linter is not installed, please follow the instructions [here](https://github.com/AtomLinter/Linter).  You may also need to install the [language-haml](https://github.com/cannikin/language-haml) plugin.
+
+### Dependencies
+
+This plugin requires the Linter package to be installed. If Linter is not installed, please follow the instructions [here](https://github.com/AtomLinter/Linter).
+
+Linter-haml relies on the HAML-lint gem to perform linting. If you do not currently have HAML-lint installed, follow the instructions [here](https://github.com/causes/haml-lint).
+
+You may also need to install the [language-haml](https://github.com/cannikin/language-haml) plugin.
 
 ### Plugin installation
 ```
