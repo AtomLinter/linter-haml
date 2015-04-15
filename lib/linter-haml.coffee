@@ -20,10 +20,10 @@ class LinterHaml extends Linter
   constructor: (editor) ->
     super(editor)
 
-    atom.config.observe 'linter-haml-lint.hamlLintExecutablePath', =>
+    @executablePathListener = atom.config.observe 'linter-haml-lint.hamlLintExecutablePath', =>
       @executablePath = atom.config.get 'linter-haml-lint.hamlLintExecutablePath'
 
   destroy: ->
-    atom.config.unobserve 'linter-haml-lint.hamlLintExecutablePath'
+    @executablePathListener.dispose()
 
 module.exports = LinterHaml
