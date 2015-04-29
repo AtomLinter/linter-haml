@@ -1,17 +1,11 @@
-# Unreleased
+## Unreleased
 
-### Clarify dependencies
+* [#3](https://github.com/AtomLinter/linter-haml/pull/3) Update readme to better explain dependencies
 
-* See README for details.
+## 0.1.1
 
-# 0.1.1
+* [#1](https://github.com/AtomLinter/linter-haml/issues/1) Support for setting path to `haml-lint` executable
 
-### Support setting executable path
+## 0.1.0
 
-* See README for details.
-
-# 0.1.0
-
-### Initial Implementation
-
-* It's alive!
+* Initial implementation
