@@ -1,5 +1,9 @@
 ## Unreleased
 
+* Nothing yet
+
+## 0.3.0
+
 * [#3](https://github.com/AtomLinter/linter-haml/pull/3) Update readme to better explain dependencies
 
 * [#4](https://github.com/AtomLinter/linter-haml/pull/4) Dispose config listeners
