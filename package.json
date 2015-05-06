@@ -3,7 +3,7 @@
   "linter-package": true,
   "activationCommands": {},
   "main": "./lib/init",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Atom linter plugin for HAML, using haml-lint",
   "repository": "https://github.com/AtomLinter/linter-haml",
   "license": "MIT",
