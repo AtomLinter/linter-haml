@@ -2,6 +2,10 @@
 
 * Nothing yet
 
+## 0.4.0
+
+* [#6](https://github.com/AtomLinter/linter-haml/pull/6) Use `activationCommands` instead of deprecated `activationEvents` in `package.json`
+
 ## 0.3.0
 
 * [#3](https://github.com/AtomLinter/linter-haml/pull/3) Update readme to better explain dependencies
