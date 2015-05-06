@@ -1,7 +1,7 @@
 {
   "name": "linter-haml",
   "linter-package": true,
-  "activationEvents": [],
+  "activationCommands": {},
   "main": "./lib/init",
   "version": "0.3.0",
   "description": "Atom linter plugin for HAML, using haml-lint",
