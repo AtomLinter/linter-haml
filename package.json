@@ -1,6 +1,5 @@
 {
   "name": "linter-haml",
-  "linter-package": true,
   "activationCommands": {},
   "main": "./lib/init",
   "version": "0.4.0",
@@ -10,5 +9,17 @@
   "engines": {
     "atom": ">=0.151.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "fs-extra": "0.22.1",
+    "node-uuid": "1.4.3",
+    "temp": "0.8.3",
+    "xregexp": "2.0.0"
+  },
+  "providedServices": {
+    "linter": {
+      "versions": {
+        "1.0.0": "provideLinter"
+      }
+    }
+  }
 }
