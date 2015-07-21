@@ -20,20 +20,21 @@ class Linter
         return reject Error(error) if error
         resolve()
 
-  findFile: (filePath, fileName) ->
-    console.log 'findFile'
-    console.log 'filePath', filePath
-    console.log 'fileName', fileName
+  exists: (filePath) ->
     new Promise (resolve, reject) ->
-      console.log 'finding path'
+      fs.exists filePath, (exists) ->
+        resolve exists
+
+  findFile: (filePath, fileName) =>
+    new Promise (resolve, reject) =>
       foundPath = helpers.findFile filePath, fileName
-      console.log 'foundPath', foundPath
-      unless foundPath
-        homeDir = process.env.HOME || process.env.USERPROFILE
-        homePath = path.join homeDir, fileName
-        fs.exists homePath, (exists) ->
-          foundPath = homePath if exists
-      resolve foundPath
+      return resolve foundPath if foundPath
+
+      homeDir = process.env.HOME || process.env.USERPROFILE
+      homePath = path.join homeDir, fileName
+      @exists homePath
+      .then (exists) ->
+        resolve if exists then homePath else undefined
 
   findHamlLintYmlFile: (filePath) =>
     new Promise (resolve, reject) =>
@@ -42,11 +43,7 @@ class Linter
         resolve hamlLintYmlPath
 
   findRubocopYmlFile: (filePath) =>
-    console.log 'findRubocopYmlFile'
-    console.log '@findFile', @findFile
     new Promise (resolve, reject) =>
-      # return resolve undefined
-      console.log 'before @findFile'
       @findFile filePath, '.rubocop.yml'
       .then (rubocopYmlPath) ->
         resolve rubocopYmlPath
@@ -55,43 +52,29 @@ class Linter
 
   lint: (textEditor) =>
     new Promise (resolve, reject) =>
-      # write contents to tempfile in tempdir
-      # find/copy .rubocop.yml to tempdir
-      # find/copy .haml-lint.yml to tempdir
-      # copy editor content to tempdir
-      # lint tempfile with cwd at tempdir
-      # remove tempdir
-
       fileContent = textEditor.getText()
       filePath = textEditor.getPath()
       fileName = path.basename filePath
 
-      hamlLintYmlPath = undefined
       results = []
       rubocopYmlPath = undefined
       tempDir = undefined
       tempFile = undefined
+
       @makeTempDir().then (dir) =>
-        console.log 'tempDir', dir
         tempDir = dir
         @writeTempFile(tempDir, fileName, fileContent)
       .then (file) =>
         tempFile = file
-        console.log 'then file'
-        console.log '@copyRubocopYml', @copyRubocopYml
         @findRubocopYmlFile(filePath) if @copyRubocopYml
       .then (rubocopYmlPath) =>
-        console.log 'rubocopYmlPath', rubocopYmlPath
         if rubocopYmlPath
           @copyFile rubocopYmlPath, path.join(tempDir, '.rubocop.yml')
       .then =>
         @findHamlLintYmlFile filePath
-      .then (path) ->
-        hamlLintYmlPath = path
-      .then =>
+      .then (hamlLintYmlPath) =>
         @lintFile textEditor, tempFile, hamlLintYmlPath
       .then (messages) ->
-        console.log 'messages', messages
         results = messages
       .then =>
         @removeTempDir tempDir
@@ -102,11 +85,6 @@ class Linter
         resolve results
 
   lintFile: (textEditor, tempFile, hamlLintYmlPath) ->
-    console.log 'lintFile'
-    console.log 'textEditor', textEditor
-    console.log 'tempFile', tempFile
-    console.log 'hamlLintYmlPath', hamlLintYmlPath
-
     new Promise (resolve, reject) =>
       filePath   = textEditor.getPath()
       tabLength  = textEditor.getTabLength()
@@ -117,9 +95,6 @@ class Linter
         args.push '--config'
         args.push hamlLintYmlPath
       args.push tempFile
-      console.log 'args', args
-
-
 
       output = []
       process = new BufferedProcess
@@ -160,13 +135,13 @@ class Linter
         return reject Error(error) if error
         resolve()
 
+  scope: 'file'
+
   writeTempFile: (tempDir, fileName, fileContent) ->
     new Promise (resolve, reject) ->
       tempFile = path.join tempDir, fileName
       fse.writeFile tempFile, fileContent, (error) ->
         return reject Error(error) if error
         resolve tempFile
-
-  scope: 'file'
 
 module.exports = Linter
