@@ -1,8 +1,7 @@
 {
   "name": "linter-haml",
-  "linter-package": true,
   "activationCommands": {},
-  "main": "./lib/init",
+  "main": "./lib/main",
   "version": "0.4.0",
   "description": "Atom linter plugin for HAML, using haml-lint",
   "repository": "https://github.com/AtomLinter/linter-haml",
@@ -10,5 +9,17 @@
   "engines": {
     "atom": ">=0.151.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "atom-linter": "1.0.2",
+    "fs-extra": "0.22.1",
+    "temp": "0.8.3",
+    "xregexp": "2.0.0"
+  },
+  "providedServices": {
+    "linter": {
+      "versions": {
+        "1.0.0": "provideLinter"
+      }
+    }
+  }
 }
