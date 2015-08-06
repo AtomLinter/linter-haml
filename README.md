@@ -7,7 +7,7 @@ This linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides a
 
 ### Dependencies
 
-This plugin requires the Linter package to be installed. If Linter is not installed, please follow the instructions [here](https://github.com/AtomLinter/Linter).
+This plugin requires the Linter package to be installed. If Linter is not installed, please follow the instructions [here](https://atom.io/packages/linter).
 
 Linter-haml relies on the HAML-lint gem to perform linting. If you do not currently have HAML-lint installed, follow the instructions [here](https://github.com/causes/haml-lint).
 
@@ -21,8 +21,9 @@ $ apm install linter-haml
 ## Settings
 You can configure linter-haml by editing ~/.atom/config.cson (choose Open Your Config in Atom menu):
 ```
-'linter-haml-lint':
-  'hamlLintExecutablePath': null #haml-lint path. run 'which haml-lint' to find the path
+'linter-haml':
+  'copyRubocopYml': true # Copy rubocop.yml to temporary directory for linting (if it can be found).  Set to `false` if this is too slow / too IO-intensive for your needs.
+  'hamlLintExecutablePath': null # haml-lint path.  Run `which haml-lint` to find the path.
 ```
 
 ## Contributing

@@ -2,6 +2,11 @@
 
 * Nothing yet
 
+## 1.0.0
+
+* [#11](https://github.com/AtomLinter/linter-haml/pull/11) Rewrite for new Linter API
+  * **Breaking change:** Configuration is no longer namespaced under `linter-haml-lint`, but under `linter-haml`.  As such, previously configured `hamlLintExecutablePath` will not work.  You can either change the namespace in your `config.cson` or change the package settings with Atom's GUI to set an appropriate value.
+
 ## 0.4.0
 
 * [#6](https://github.com/AtomLinter/linter-haml/pull/6) Use `activationCommands` instead of deprecated `activationEvents` in `package.json`
