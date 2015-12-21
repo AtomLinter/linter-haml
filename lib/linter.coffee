@@ -7,6 +7,11 @@ temp = require 'temp'
 XRegExp = require('xregexp').XRegExp
 
 class Linter
+  name: 'haml_lint'
+  grammarScopes: ['text.haml']
+  scope: 'file'
+  lintOnFly: true
+
   constructor: ->
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.config.observe 'linter-haml.copyRubocopYml', (copyRubocopYml) =>
@@ -47,8 +52,6 @@ class Linter
       @findFile filePath, '.rubocop.yml'
       .then (rubocopYmlPath) ->
         resolve rubocopYmlPath
-
-  grammarScopes: ['text.haml']
 
   lint: (textEditor) =>
     new Promise (resolve, reject) =>
@@ -108,7 +111,6 @@ class Linter
             range: helpers.rangeFromLineNumber(textEditor, match.line - 1)
         return messages
 
-  lintOnFly: true
 
   makeTempDir: ->
     new Promise (resolve, reject) ->
@@ -122,7 +124,6 @@ class Linter
         return reject Error(error) if error
         resolve()
 
-  scope: 'file'
 
   writeTempFile: (tempDir, fileName, fileContent) ->
     new Promise (resolve, reject) ->
