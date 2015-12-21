@@ -27,7 +27,7 @@ class Linter
 
   findFile: (filePath, fileName) =>
     new Promise (resolve, reject) =>
-      foundPath = helpers.findFile filePath, fileName
+      foundPath = helpers.find filePath, fileName
       return resolve foundPath if foundPath
 
       homeDir = process.env.HOME || process.env.USERPROFILE
