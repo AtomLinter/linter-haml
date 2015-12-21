@@ -87,7 +87,6 @@ class Linter
   lintFile: (textEditor, tempFile, hamlLintYmlPath) ->
     new Promise (resolve, reject) =>
       filePath   = textEditor.getPath()
-      tabLength  = textEditor.getTabLength()
       textBuffer = textEditor.getBuffer()
 
       args = []
@@ -110,15 +109,11 @@ class Linter
             '(?<message>.+)'
           messages = []
           XRegExp.forEach output, regex, (match, i) ->
-            indentLevel = textEditor.indentationForBufferRow(match.line - 1)
             messages.push
               type: if match.warning? then 'warning' else 'error'
               text: match.message
               filePath: filePath
-              range: [
-                [match.line - 1, indentLevel * tabLength],
-                [match.line - 1, textBuffer.lineLengthForRow(match.line - 1)]
-              ]
+              range: helpers.rangeFromLineNumber(textEditor, match.line - 1)
           resolve messages
 
   lintOnFly: true
