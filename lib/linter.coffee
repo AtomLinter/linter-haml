@@ -1,4 +1,4 @@
-{BufferedProcess, CompositeDisposable} = require 'atom'
+{CompositeDisposable} = require 'atom'
 helpers = require 'atom-linter'
 fs = require 'fs'
 fse = require 'fs-extra'
@@ -95,26 +95,18 @@ class Linter
         args.push hamlLintYmlPath
       args.push tempFile
 
-      output = []
-      process = new BufferedProcess
-        command: @executablePath
-        args: args
-        options:
-          cwd: path.dirname tempFile
-        stdout: (data) ->
-          output.push data
-        exit: (code) ->
-          regex = XRegExp '.+?:(?<line>\\d+) ' +
-            '\\[((?<warning>W)|(?<error>E))\\] ' +
-            '(?<message>.+)'
-          messages = []
-          XRegExp.forEach output, regex, (match, i) ->
-            messages.push
-              type: if match.warning? then 'warning' else 'error'
-              text: match.message
-              filePath: filePath
-              range: helpers.rangeFromLineNumber(textEditor, match.line - 1)
-          resolve messages
+      resolve helpers.exec(@executablePath, args).then (output) ->
+        regex = XRegExp '.+?:(?<line>\\d+) ' +
+        '\\[((?<warning>W)|(?<error>E))\\] ' +
+        '(?<message>.+)'
+        messages = []
+        XRegExp.forEach output, regex, (match, i) ->
+          messages.push
+            type: if match.warning? then 'Warning' else 'Error'
+            text: match.message
+            filePath: filePath
+            range: helpers.rangeFromLineNumber(textEditor, match.line - 1)
+        return messages
 
   lintOnFly: true
 
