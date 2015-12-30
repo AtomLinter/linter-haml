@@ -1,4 +1,4 @@
-{BufferedProcess, CompositeDisposable} = require 'atom'
+{CompositeDisposable} = require 'atom'
 helpers = require 'atom-linter'
 fs = require 'fs'
 fse = require 'fs-extra'
@@ -7,7 +7,13 @@ temp = require 'temp'
 XRegExp = require('xregexp').XRegExp
 
 class Linter
+  name: 'haml_lint'
+  grammarScopes: ['text.haml']
+  scope: 'file'
+  lintOnFly: true
+
   constructor: ->
+    require('atom-package-deps').install()
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.config.observe 'linter-haml.copyRubocopYml', (copyRubocopYml) =>
       @copyRubocopYml = copyRubocopYml
@@ -27,7 +33,7 @@ class Linter
 
   findFile: (filePath, fileName) =>
     new Promise (resolve, reject) =>
-      foundPath = helpers.findFile filePath, fileName
+      foundPath = helpers.find filePath, fileName
       return resolve foundPath if foundPath
 
       homeDir = process.env.HOME || process.env.USERPROFILE
@@ -47,8 +53,6 @@ class Linter
       @findFile filePath, '.rubocop.yml'
       .then (rubocopYmlPath) ->
         resolve rubocopYmlPath
-
-  grammarScopes: ['text.haml']
 
   lint: (textEditor) =>
     new Promise (resolve, reject) =>
@@ -87,7 +91,6 @@ class Linter
   lintFile: (textEditor, tempFile, hamlLintYmlPath) ->
     new Promise (resolve, reject) =>
       filePath   = textEditor.getPath()
-      tabLength  = textEditor.getTabLength()
       textBuffer = textEditor.getBuffer()
 
       args = []
@@ -96,32 +99,19 @@ class Linter
         args.push hamlLintYmlPath
       args.push tempFile
 
-      output = []
-      process = new BufferedProcess
-        command: @executablePath
-        args: args
-        options:
-          cwd: path.dirname tempFile
-        stdout: (data) ->
-          output.push data
-        exit: (code) ->
-          regex = XRegExp '.+?:(?<line>\\d+) ' +
-            '\\[((?<warning>W)|(?<error>E))\\] ' +
-            '(?<message>.+)'
-          messages = []
-          XRegExp.forEach output, regex, (match, i) ->
-            indentLevel = textEditor.indentationForBufferRow(match.line - 1)
-            messages.push
-              type: if match.warning? then 'warning' else 'error'
-              text: match.message
-              filePath: filePath
-              range: [
-                [match.line - 1, indentLevel * tabLength],
-                [match.line - 1, textBuffer.lineLengthForRow(match.line - 1)]
-              ]
-          resolve messages
+      resolve helpers.exec(@executablePath, args).then (output) ->
+        regex = XRegExp '.+?:(?<line>\\d+) ' +
+        '\\[((?<warning>W)|(?<error>E))\\] ' +
+        '(?<message>.+)'
+        messages = []
+        XRegExp.forEach output, regex, (match, i) ->
+          messages.push
+            type: if match.warning? then 'Warning' else 'Error'
+            text: match.message
+            filePath: filePath
+            range: helpers.rangeFromLineNumber(textEditor, match.line - 1)
+        return messages
 
-  lintOnFly: true
 
   makeTempDir: ->
     new Promise (resolve, reject) ->
@@ -135,7 +125,6 @@ class Linter
         return reject Error(error) if error
         resolve()
 
-  scope: 'file'
 
   writeTempFile: (tempDir, fileName, fileContent) ->
     new Promise (resolve, reject) ->

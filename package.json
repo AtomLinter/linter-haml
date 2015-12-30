@@ -7,14 +7,18 @@
   "repository": "https://github.com/AtomLinter/linter-haml",
   "license": "MIT",
   "engines": {
-    "atom": ">=0.151.0"
+    "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
-    "atom-linter": "4.2.0",
+    "atom-linter": "^4.2.0",
+    "atom-package-deps": "^3.0.6",
     "fs-extra": "0.26.3",
     "temp": "0.8.3",
     "xregexp": "3.0.0"
   },
+  "package-deps": [
+    "linter"
+  ],
   "providedServices": {
     "linter": {
       "versions": {
