@@ -4,7 +4,7 @@ fs = require 'fs'
 fse = require 'fs-extra'
 path = require 'path'
 temp = require 'temp'
-XRegExp = require('xregexp').XRegExp
+XRegExp = require 'xregexp'
 
 class Linter
   name: 'haml_lint'
