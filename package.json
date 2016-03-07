@@ -30,11 +30,14 @@
   "devDependencies": {
     "eslint": "^2.2.0",
     "babel-eslint": "^5.0.0",
-    "eslint-config-airbnb": "^6.0.2"
+    "eslint-config-airbnb": "^6.1.0"
   },
   "eslintConfig": {
     "rules": {
-      "comma-dangle": [2, "never"]
+      "comma-dangle": [
+        2,
+        "never"
+      ]
     },
     "extends": "airbnb/base",
     "parser": "babel-eslint",
