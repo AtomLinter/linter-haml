@@ -89,7 +89,7 @@ class Linter
       .then ->
         resolve results
       .catch (error) ->
-        console.error 'linter-haml error', error
+        console.error error
         resolve results
 
   lintFile: (textEditor, tempFile, hamlLintYmlPath) ->
