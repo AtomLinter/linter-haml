@@ -19,6 +19,8 @@ class Linter
       @copyRubocopYml = copyRubocopYml
     @subscriptions.add atom.config.observe 'linter-haml.hamlLintExecutablePath', (executablePath) =>
       @executablePath = executablePath
+    @subscriptions.add atom.config.observe 'linter-haml.globalHamlLintYmlFile', (globalHamlLintYmlFile) =>
+      @globalHamlLintFile = globalHamlLintYmlFile
 
   copyFile: (sourcePath, destinationPath) ->
     new Promise (resolve, reject) ->
@@ -45,7 +47,9 @@ class Linter
   findHamlLintYmlFile: (filePath) =>
     new Promise (resolve, reject) =>
       @findFile filePath, '.haml-lint.yml'
-      .then (hamlLintYmlPath) ->
+      .then (hamlLintYmlPath) =>
+        if hamlLintYmlPath is undefined
+          hamlLintYmlPath = @findFile filePath, @globalHamlLintFile
         resolve hamlLintYmlPath
 
   findRubocopYmlFile: (filePath) =>
@@ -59,6 +63,7 @@ class Linter
       fileContent = textEditor.getText()
       filePath = textEditor.getPath()
       fileName = path.basename filePath
+      projectPath = "#{atom.project.relativizePath(filePath)[0]}/"
 
       results = []
       rubocopYmlPath = undefined
@@ -75,7 +80,7 @@ class Linter
         if rubocopYmlPath
           @copyFile rubocopYmlPath, path.join(tempDir, '.rubocop.yml')
       .then =>
-        @findHamlLintYmlFile filePath
+        @findHamlLintYmlFile(projectPath)
       .then (hamlLintYmlPath) =>
         @lintFile textEditor, tempFile, hamlLintYmlPath
       .then (messages) ->

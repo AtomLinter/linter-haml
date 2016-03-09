@@ -15,6 +15,11 @@ module.exports =
       description: 'Path to haml-lint executable'
       type: 'string'
 
+    globalHamlLintYmlFile:
+      default: '.haml-lint.yml'
+      description: 'Path to set the global haml lint file'
+      type: 'string'
+      
   deactivate: =>
     @linter.subscriptions.dispose()
 
