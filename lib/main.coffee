@@ -16,10 +16,9 @@ module.exports =
       type: 'string'
 
     globalHamlLintYmlFile:
-      default: '.haml-lint.yml'
-      description: 'Path to set the global haml lint file'
+      description: 'Full path to a global Haml lint file, if no other is found'
       type: 'string'
-      
+
   deactivate: =>
     @linter.subscriptions.dispose()
 
