@@ -15,6 +15,10 @@ module.exports =
       description: 'Path to haml-lint executable'
       type: 'string'
 
+    globalHamlLintYmlFile:
+      description: 'Full path to a global Haml lint file, if no other is found'
+      type: 'string'
+
   deactivate: =>
     @linter.subscriptions.dispose()
 
