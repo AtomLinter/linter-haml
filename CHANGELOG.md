@@ -1,5 +1,10 @@
 # Changes
 
+## 1.2.0
+
+*   [#48](https://github.com/AtomLinter/linter-haml/pull/48) Allow specifying a
+    global config file
+
 ## 1.1.0
 
 *   [#17](https://github.com/AtomLinter/linter-haml/pull/17),
