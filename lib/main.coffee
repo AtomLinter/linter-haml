@@ -16,6 +16,7 @@ module.exports =
       type: 'string'
 
     globalHamlLintYmlFile:
+      default: ''
       description: 'Full path to a global Haml lint file, if no other is found'
       type: 'string'
 

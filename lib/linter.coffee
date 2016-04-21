@@ -98,7 +98,7 @@ class Linter
       textBuffer = textEditor.getBuffer()
 
       args = []
-      if hamlLintYmlPath?
+      if hamlLintYmlPath? && hamlLintYmlPath != ''
         args.push '--config'
         args.push hamlLintYmlPath
       args.push tempFile
