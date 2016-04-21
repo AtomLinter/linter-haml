@@ -13,7 +13,7 @@ class Linter
   lintOnFly: true
 
   constructor: ->
-    require('atom-package-deps').install()
+    require('atom-package-deps').install('linter-haml')
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.config.observe 'linter-haml.copyRubocopYml', (copyRubocopYml) =>
       @copyRubocopYml = copyRubocopYml
