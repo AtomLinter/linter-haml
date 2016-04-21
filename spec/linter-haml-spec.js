@@ -6,8 +6,9 @@ const validPath = path.join(__dirname, 'fixtures', 'valid.rb');
 const cawsvpath = path.join(__dirname, 'fixtures', 'cawsv.rb');
 const emptyPath = path.join(__dirname, 'fixtures', 'empty.rb');
 
+const Linter = require(path.join('..', 'lib', 'linter'));
+
 describe('The haml-lint provider for Linter', () => {
-  const Linter = require(path.join('..', 'lib', 'linter'));
   const lint = new Linter().lint;
 
   beforeEach(() => {
