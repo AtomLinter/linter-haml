@@ -1,7 +1,4 @@
 # Project specific configuration
-before_script:
-  - ruby --version
-
 language: ruby
 
 rvm:
@@ -10,9 +7,6 @@ rvm:
   - 2.3.0
 
 env:
-  global:
-    - APM_TEST_PACKAGES="language-haml linter"
-
   matrix:
     - ATOM_CHANNEL=stable
     - ATOM_CHANNEL=beta
