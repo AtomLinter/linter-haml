@@ -7,6 +7,12 @@ rvm:
   - 2.3.0
 
 env:
+  global:
+    # For regular user installations this will be taken care of by package-deps
+    # However, package activation doesn't wait on the Promise that returns so
+    # we are just forcing it's installation here.
+    - APM_TEST_PACKAGES="language-haml"
+
   matrix:
     - ATOM_CHANNEL=stable
     - ATOM_CHANNEL=beta
