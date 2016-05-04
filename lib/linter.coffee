@@ -13,7 +13,7 @@ class Linter
   lintOnFly: true
 
   constructor: ->
-    require('atom-package-deps').install()
+    require('atom-package-deps').install('linter-haml')
     @subscriptions = new CompositeDisposable
     @subscriptions.add atom.config.observe 'linter-haml.copyRubocopYml', (copyRubocopYml) =>
       @copyRubocopYml = copyRubocopYml
@@ -89,7 +89,7 @@ class Linter
       .then ->
         resolve results
       .catch (error) ->
-        console.error 'linter-haml error', error
+        console.error error
         resolve results
 
   lintFile: (textEditor, tempFile, hamlLintYmlPath) ->
@@ -98,7 +98,7 @@ class Linter
       textBuffer = textEditor.getBuffer()
 
       args = []
-      if hamlLintYmlPath?
+      if hamlLintYmlPath? && hamlLintYmlPath != ''
         args.push '--config'
         args.push hamlLintYmlPath
       args.push tempFile
