@@ -1,0 +1,27 @@
+before_script:
+  - ruby --version
+
+env:
+  global:
+    - APM_TEST_PACKAGES="language-haml linter"
+
+  matrix:
+    - ATOM_CHANNEL=stable
+    - ATOM_CHANNEL=beta
+
+language: ruby
+
+notifications:
+  email:
+    on_success: never
+    on_failure: change
+
+os:
+  - linux
+
+rvm:
+  - 2.1.8
+  - 2.2.4
+  - 2.3.0
+
+script: 'curl -s https://raw.githubusercontent.com/atom/ci/master/build-package.sh | sh'

@@ -1,6 +1,8 @@
 linter-haml
 =========================
 
+[![Build Status](https://travis-ci.org/AtomLinter/linter-haml.svg?branch=master)](https://travis-ci.org/AtomLinter/linter-haml)
+
 This linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides an interface to [haml-lint](https://github.com/causes/haml-lint). It will be used with files that have the "HAML" syntax.
 
 ## Installation
