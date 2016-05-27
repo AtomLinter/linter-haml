@@ -14,7 +14,7 @@
     "atom-package-deps": "^4.0.1",
     "fs-extra": "0.30.0",
     "temp": "0.8.3",
-    "xregexp": "3.1.0"
+    "xregexp": "3.1.1"
   },
   "package-deps": [
     "linter",
