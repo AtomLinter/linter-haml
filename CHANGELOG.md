@@ -1,5 +1,10 @@
 # Changes
 
+## 1.2.1
+
+*   Fix a few small bugs
+*   Enabled CI testing
+
 ## 1.2.0
 
 *   [#48](https://github.com/AtomLinter/linter-haml/pull/48) Allow specifying a
