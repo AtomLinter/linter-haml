@@ -15,12 +15,15 @@ class Linter
   constructor: ->
     require('atom-package-deps').install('linter-haml')
     @subscriptions = new CompositeDisposable
-    @subscriptions.add atom.config.observe 'linter-haml.copyRubocopYml', (copyRubocopYml) =>
-      @copyRubocopYml = copyRubocopYml
-    @subscriptions.add atom.config.observe 'linter-haml.hamlLintExecutablePath', (executablePath) =>
-      @executablePath = executablePath
-    @subscriptions.add atom.config.observe 'linter-haml.globalHamlLintYmlFile', (globalHamlLintYmlFile) =>
-      @globalHamlLintFile = globalHamlLintYmlFile
+    @subscriptions.add atom.config.observe 'linter-haml.copyRubocopYml',
+      (copyRubocopYml) =>
+        @copyRubocopYml = copyRubocopYml
+    @subscriptions.add atom.config.observe 'linter-haml.hamlLintExecutablePath',
+      (executablePath) =>
+        @executablePath = executablePath
+    @subscriptions.add atom.config.observe 'linter-haml.globalHamlLintYmlFile',
+      (globalHamlLintYmlFile) =>
+        @globalHamlLintFile = globalHamlLintYmlFile
 
   copyFile: (sourcePath, destinationPath) ->
     new Promise (resolve, reject) ->
@@ -103,7 +106,9 @@ class Linter
         args.push hamlLintYmlPath
       args.push tempFile
 
-      resolve helpers.exec(@executablePath, args).then (output) ->
+      options = { ignoreExitCode: true }
+
+      resolve helpers.exec(@executablePath, args, options).then (output) ->
         regex = XRegExp '.+?:(?<line>\\d+) ' +
         '\\[((?<warning>W)|(?<error>E))\\] ' +
         '(?<message>.+)'
