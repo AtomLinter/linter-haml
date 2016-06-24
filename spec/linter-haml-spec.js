@@ -46,8 +46,8 @@ describe('The haml-lint provider for Linter', () => {
         const messageText = 'ClassAttributeWithStaticValue: Avoid defining ' +
           '`class` in attributes hash for static class names';
         return lint(editor).then(messages => {
-          expect(messages[0].type).toEqual('Warning');
-          expect(messages[0].text).toEqual(messageText);
+          expect(messages[0].type).toBe('Warning');
+          expect(messages[0].text).toBe(messageText);
           expect(messages[0].filePath).toBe(cawsvpath);
           expect(messages[0].range).toEqual([[0, 0], [0, 23]]);
         });
@@ -59,7 +59,7 @@ describe('The haml-lint provider for Linter', () => {
     waitsForPromise(() =>
       atom.workspace.open(validPath).then(editor =>
         lint(editor).then(messages =>
-          expect(messages.length).toEqual(0)
+          expect(messages.length).toBe(0)
         )
       )
     );
@@ -69,7 +69,7 @@ describe('The haml-lint provider for Linter', () => {
     waitsForPromise(() =>
       atom.workspace.open(emptyPath).then(editor =>
         lint(editor).then(messages =>
-          expect(messages.length).toEqual(0)
+          expect(messages.length).toBe(0)
         )
       )
     );
