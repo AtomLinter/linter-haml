@@ -20,6 +20,13 @@ env:
 os:
   - linux
 
+install:
+  # Installed for linting the project
+  - nvm install 6
+
+before_script:
+  - haml-lint --version
+
 # Generic configuration
 notifications:
   email:
