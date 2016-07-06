@@ -1,4 +1,4 @@
-# Project specific configuration
+### Project specific config ###
 language: ruby
 
 rvm:
@@ -12,6 +12,7 @@ env:
     # However, package activation doesn't wait on the Promise that returns so
     # we are just forcing it's installation here.
     - APM_TEST_PACKAGES="language-haml"
+    - ATOM_LINT_WITH_BUNDLED_NODE="false"
 
   matrix:
     - ATOM_CHANNEL=stable
@@ -20,11 +21,27 @@ env:
 os:
   - linux
 
-# Generic configuration
+install:
+  # Installed for linting the project
+  - nvm install node
+
+before_script:
+  - haml-lint --version
+
+### Generic setup follows ###
+script: 'curl -s https://raw.githubusercontent.com/atom/ci/master/build-package.sh | sh'
+
 notifications:
   email:
     on_success: never
     on_failure: change
+
+branches:
+  only:
+    - master
+
+git:
+  depth: 10
 
 sudo: false
 
@@ -35,12 +52,3 @@ addons:
     - git
     - libgnome-keyring-dev
     - fakeroot
-
-git:
-  depth: 10
-
-branches:
-  only:
-    - master
-
-script: 'curl -s https://raw.githubusercontent.com/atom/ci/master/build-package.sh | sh'
