@@ -24,6 +24,7 @@ os:
 install:
   # Installed for linting the project
   - nvm install node
+  - gem install --no-document haml_lint
 
 before_script:
   - haml-lint --version
