@@ -10,7 +10,7 @@
     "atom": ">=1.4.0 <2.0.0"
   },
   "configSchema": {
-    "hamlLintExecutablePath": {
+    "executablePath": {
       "default": "haml-lint",
       "description": "Path to haml-lint executable",
       "type": "string"

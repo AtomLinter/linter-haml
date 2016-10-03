@@ -24,8 +24,7 @@ $ apm install linter-haml
 You can configure linter-haml by editing ~/.atom/config.cson (choose Open Your Config in Atom menu):
 ```
 'linter-haml':
-  'copyRubocopYml': true # Copy rubocop.yml to temporary directory for linting (if it can be found).  Set to `false` if this is too slow / too IO-intensive for your needs.
-  'hamlLintExecutablePath': null # haml-lint path.  Run `which haml-lint` to find the path.
+  'executablePath': null # haml-lint path.  Run `which haml-lint` to find the path.
 ```
 
 ## Contributing
