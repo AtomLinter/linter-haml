@@ -6,7 +6,7 @@ const validPath = path.join(__dirname, 'fixtures', 'valid.rb');
 const cawsvpath = path.join(__dirname, 'fixtures', 'cawsv.rb');
 const emptyPath = path.join(__dirname, 'fixtures', 'empty.rb');
 
-const Linter = require(path.join('..', 'lib', 'linter'));
+const Linter = require('../lib/linter.coffee');
 
 describe('The haml-lint provider for Linter', () => {
   const lint = new Linter().lint;
@@ -29,7 +29,7 @@ describe('The haml-lint provider for Linter', () => {
     let editor = null;
     beforeEach(() => {
       waitsForPromise(() =>
-        atom.workspace.open(cawsvpath).then(openEditor => { editor = openEditor; })
+        atom.workspace.open(cawsvpath).then((openEditor) => { editor = openEditor; })
       );
     });
 
@@ -45,7 +45,7 @@ describe('The haml-lint provider for Linter', () => {
       waitsForPromise(() => {
         const messageText = 'ClassAttributeWithStaticValue: Avoid defining ' +
           '`class` in attributes hash for static class names';
-        return lint(editor).then(messages => {
+        return lint(editor).then((messages) => {
           expect(messages[0].type).toEqual('Warning');
           expect(messages[0].text).toEqual(messageText);
           expect(messages[0].filePath).toBe(cawsvpath);
