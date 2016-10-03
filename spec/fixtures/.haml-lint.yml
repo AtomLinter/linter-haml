@@ -1,0 +1,7 @@
+linters:
+  RuboCop:
+    enabled: true
+    ignored_cops:
+      - Style/FinalNewline
+      - Style/TrailingBlankLines
+      - Style/EndOfLine
