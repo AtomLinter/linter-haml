@@ -1,5 +1,18 @@
 # Changes
 
+## 2.0.0
+
+*   Disable on the fly linting
+    *   `haml-lint` doesn't support sending the current contents via `stdin`
+        and the old attempts at copying files to a temporary directory were not
+        complete enough to cover all edge cases
+*   Link rules to documentation: Clicking a rule name in the message will now
+    open the documentation page in your browser.
+*   Rename `hamlLintExecutablePath` option to just `executablePath`
+*   Fix a race condition if the editor contents changed since the lint was
+    triggered
+*   Several dependency updates
+
 ## 1.2.1
 
 *   Fix a few small bugs
