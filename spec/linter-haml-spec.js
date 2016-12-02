@@ -19,8 +19,8 @@ describe('The haml-lint provider for Linter', () => {
         atom.packages.activatePackage('linter-haml'),
         atom.packages.activatePackage('language-haml'),
       ]).then(() =>
-        atom.workspace.open(validPath)
-      )
+        atom.workspace.open(validPath),
+      ),
     );
   });
 
@@ -28,15 +28,15 @@ describe('The haml-lint provider for Linter', () => {
     let editor = null;
     beforeEach(() => {
       waitsForPromise(() =>
-        atom.workspace.open(cawsvpath).then((openEditor) => { editor = openEditor; })
+        atom.workspace.open(cawsvpath).then((openEditor) => { editor = openEditor; }),
       );
     });
 
     it('finds at least one message', () => {
       waitsForPromise(() =>
         lint(editor).then(messages =>
-          expect(messages.length).toBeGreaterThan(0)
-        )
+          expect(messages.length).toBeGreaterThan(0),
+        ),
       );
     });
 
@@ -61,9 +61,9 @@ describe('The haml-lint provider for Linter', () => {
     waitsForPromise(() =>
       atom.workspace.open(validPath).then(editor =>
         lint(editor).then(messages =>
-          expect(messages.length).toBe(0)
-        )
-      )
+          expect(messages.length).toBe(0),
+        ),
+      ),
     );
   });
 
@@ -71,9 +71,9 @@ describe('The haml-lint provider for Linter', () => {
     waitsForPromise(() =>
       atom.workspace.open(emptyPath).then(editor =>
         lint(editor).then(messages =>
-          expect(messages.length).toBe(0)
-        )
-      )
+          expect(messages.length).toBe(0),
+        ),
+      ),
     );
   });
 });
