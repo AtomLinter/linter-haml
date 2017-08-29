@@ -32,6 +32,11 @@ install:
 before_script:
   - haml-lint --version
 
+after_failure:
+  - haml-lint --config spec/fixtures/.haml-lint.yml spec/fixtures/valid.rb
+  - haml-lint --config spec/fixtures/.haml-lint.yml spec/fixtures/empty.rb
+  - haml-lint --config spec/fixtures/.haml-lint.yml spec/fixtures/cawsv.rb
+
 ### Generic setup follows ###
 script:
   - curl -s -O https://raw.githubusercontent.com/atom/ci/master/build-package.sh
@@ -53,10 +58,12 @@ git:
 
 sudo: false
 
+dist: trusty
+
 addons:
   apt:
     packages:
     - build-essential
-    - git
-    - libgnome-keyring-dev
     - fakeroot
+    - git
+    - libsecret-1-dev
