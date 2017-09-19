@@ -6,7 +6,7 @@ const validPath = path.join(__dirname, 'fixtures', 'valid.rb');
 const cawsvpath = path.join(__dirname, 'fixtures', 'cawsv.rb');
 const emptyPath = path.join(__dirname, 'fixtures', 'empty.rb');
 
-const lint = require('../lib/main.js').provideLinter().lint;
+const { lint } = require('../lib/main.js').provideLinter();
 
 describe('The haml-lint provider for Linter', () => {
   beforeEach(() => {
@@ -19,25 +19,20 @@ describe('The haml-lint provider for Linter', () => {
         atom.packages.activatePackage('linter-haml'),
         atom.packages.activatePackage('language-haml'),
       ]).then(() =>
-        atom.workspace.open(validPath),
-      ),
-    );
+        atom.workspace.open(validPath)));
   });
 
   describe('checks a file with issues and', () => {
     let editor = null;
     beforeEach(() => {
       waitsForPromise(() =>
-        atom.workspace.open(cawsvpath).then((openEditor) => { editor = openEditor; }),
-      );
+        atom.workspace.open(cawsvpath).then((openEditor) => { editor = openEditor; }));
     });
 
     it('finds at least one message', () => {
       waitsForPromise(() =>
         lint(editor).then(messages =>
-          expect(messages.length).toBeGreaterThan(0),
-        ),
-      );
+          expect(messages.length).toBeGreaterThan(0)));
     });
 
     it('verifies the first message', () => {
@@ -61,19 +56,13 @@ describe('The haml-lint provider for Linter', () => {
     waitsForPromise(() =>
       atom.workspace.open(validPath).then(editor =>
         lint(editor).then(messages =>
-          expect(messages.length).toBe(0),
-        ),
-      ),
-    );
+          expect(messages.length).toBe(0))));
   });
 
   it('finds nothing wrong with an empty file', () => {
     waitsForPromise(() =>
       atom.workspace.open(emptyPath).then(editor =>
         lint(editor).then(messages =>
-          expect(messages.length).toBe(0),
-        ),
-      ),
-    );
+          expect(messages.length).toBe(0))));
   });
 });
