@@ -4,19 +4,19 @@ language: ruby
 matrix:
   include:
     - os: linux
-      rvm: 2.1.8
+      rvm: 2.3.5
       env: ATOM_CHANNEL=stable
 
     - os: linux
-      rvm: 2.2.6
+      rvm: 2.4.0
       env: ATOM_CHANNEL=stable
 
     - os: linux
-      rvm: 2.3.3
+      rvm: 2.5.0
       env: ATOM_CHANNEL=stable
 
     - os: linux
-      rvm: 2.3.3
+      rvm: 2.5.0
       env: ATOM_CHANNEL=beta
 
 env:
