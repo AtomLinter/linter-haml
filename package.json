@@ -12,13 +12,18 @@
   "configSchema": {
     "executablePath": {
       "default": "haml-lint",
-      "description": "Path to haml-lint executable",
+      "description": "This is the absolute path to your `haml-lint` command. You may need to run `which haml-lint` or `rbenv which haml-lint` to find this.",
       "type": "string"
     },
     "globalHamlLintYmlFile": {
       "default": "",
       "description": "Full path to a global Haml lint file, if no other is found",
       "type": "string"
+    },
+    "suppressWarnings": {
+      "default": false,
+      "description": "This suppress the haml-lint executable warning notifications.",
+      "type": "boolean"
     }
   },
   "dependencies": {
