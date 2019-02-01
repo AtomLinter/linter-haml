@@ -19,11 +19,6 @@
       "default": "",
       "description": "Full path to a global Haml lint file, if no other is found",
       "type": "string"
-    },
-    "suppressWarnings": {
-      "default": false,
-      "description": "This suppress the haml-lint executable warning notifications.",
-      "type": "boolean"
     }
   },
   "dependencies": {
