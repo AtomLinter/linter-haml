@@ -27,13 +27,31 @@ describe('The haml-lint provider for Linter', () => {
       '#classattributewithstaticvalue';
     const excerpt = 'ClassAttributeWithStaticValue: Avoid defining `class` in attributes hash for static class names';
 
-    expect(messages.length).toBe(1);
-    expect(messages[0].severity).toBe('warning');
-    expect(messages[0].excerpt).toBe(excerpt);
-    expect(messages[0].description).not.toBeDefined();
-    expect(messages[0].url).toBe(url);
-    expect(messages[0].location.file).toBe(cawsvpath);
-    expect(messages[0].location.position).toEqual([[0, 0], [0, 23]]);
+    const normalWarningExpects = (message) => {
+      expect(message.severity).toBe('warning');
+      expect(message.excerpt).toBe(excerpt);
+      expect(message.description).not.toBeDefined();
+      expect(message.url).toBe(url);
+      expect(message.location.file).toBe(cawsvpath);
+      expect(message.location.position).toEqual([[0, 0], [0, 23]]);
+    };
+
+    // no old compilant syntax ruby version
+    expect(messages.length).not.toBeLessThan(1);
+    // old compilant syntax ruby version (parser warning + ClassAttributeWithStaticValue warning)
+    expect(messages.length).not.toBeGreaterThan(2);
+
+    if (messages.length > 1 && messages[0].excerpt.startsWith('haml-lint: warning')) {
+      expect(messages[0].severity).toBe('warning');
+      expect(messages[0].excerpt).toContain('haml-lint: warning');
+      expect(messages[0].description).not.toBeDefined();
+      expect(messages[0].url).not.toBeDefined();
+      expect(messages[0].location.file).toBe(cawsvpath);
+      expect(messages[0].location.position).toEqual([[0, 0], [0, Infinity]]);
+      normalWarningExpects(messages[1]);
+    } else {
+      normalWarningExpects(messages[0]);
+    }
   });
 
   it('finds nothing wrong with a valid file', async () => {
