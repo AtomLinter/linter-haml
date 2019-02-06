@@ -12,7 +12,7 @@
   "configSchema": {
     "executablePath": {
       "default": "haml-lint",
-      "description": "Path to haml-lint executable",
+      "description": "This is the absolute path to your `haml-lint` command. You may need to run `which haml-lint` or `rbenv which haml-lint` to find this.",
       "type": "string"
     },
     "globalHamlLintYmlFile": {
@@ -27,13 +27,13 @@
     "escape-html": "^1.0.3"
   },
   "package-deps": [
-    "linter",
+    "linter:2.0.0",
     "language-haml"
   ],
   "providedServices": {
     "linter": {
       "versions": {
-        "1.0.0": "provideLinter"
+        "2.0.0": "provideLinter"
       }
     }
   },
