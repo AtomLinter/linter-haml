@@ -1,5 +1,10 @@
 # Changes
 
+## 2.1.0
+
+*   Linter API v2 support (#149)
+*   Update dependencies
+
 ## 2.0.2
 
 *   Update dependencies
