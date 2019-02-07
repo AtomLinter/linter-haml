@@ -1,7 +1,9 @@
 'use babel';
 
-// eslint-disable-next-line no-unused-vars
-import { it, fit, wait, beforeEach, afterEach } from 'jasmine-fix';
+import {
+  // eslint-disable-next-line no-unused-vars
+  it, fit, wait, beforeEach, afterEach,
+} from 'jasmine-fix';
 import * as path from 'path';
 
 const validPath = path.join(__dirname, 'fixtures', 'valid.rb');
@@ -23,9 +25,10 @@ describe('The haml-lint provider for Linter', () => {
   it('checks a file with issues', async () => {
     const editor = await atom.workspace.open(cawsvpath);
     const messages = await lint(editor);
-    const url = 'https://github.com/brigade/haml-lint/blob/master/lib/haml_lint/linter/README.md' +
-      '#classattributewithstaticvalue';
-    const excerpt = 'ClassAttributeWithStaticValue: Avoid defining `class` in attributes hash for static class names';
+    const url = 'https://github.com/brigade/haml-lint/blob/master/lib/haml_lint/linter/README.md'
+      + '#classattributewithstaticvalue';
+    const excerpt = 'ClassAttributeWithStaticValue: '
+      + 'Avoid defining `class` in attributes hash for static class names';
 
     const normalWarningExpects = (message) => {
       expect(message.severity).toBe('warning');
